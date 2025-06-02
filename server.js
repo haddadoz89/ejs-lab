@@ -52,5 +52,22 @@ const RESTAURANT = {
 app.listen(3000)
 
 app.get('/', (req, res) => {
-  res.render('home.ejs');
-});
+  res.render('home.ejs',{
+    restaurant: RESTAURANT
+  })
+})
+
+app.get('/menu', (req, res) => {
+  res.render('menu.ejs', { 
+    menu: RESTAURANT
+  })
+})
+
+app.get('/menu/:category', (req, res) => {
+  const category = req.params.category
+  const menuItems = RESTAURANT.menu.filter(item => item.category === category)
+  res.render('category.ejs', { 
+    menuItems, 
+    category 
+  })
+})
